@@ -23,6 +23,23 @@ body {
   z-index: 10;
 }
 
+#helpBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#helpTxt {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1000;
+}
+
 .btn {
   padding: 1em 2em;
   font-size: 1.5em;

@@ -1,6 +1,9 @@
 const socket = io();
 
 const playBtn = document.getElementById('playBtn');
+const helpBtn = document.getElementById('helpBtn');
+const helpTxt = document.getElementById('helpTxt');
+const closeBtn = document.getElementById('closeBtn');
 const home = document.getElementById('home');
 
 const gameContainer = document.getElementById('gameContainer');
@@ -34,6 +37,14 @@ resize();
 
 let playerId;
 let gameInProgress = false;
+
+helpBtn.addEventListener('click', () => {
+  helpTxt.style.display = 'block';
+});
+
+closeBtn.addEventListener('click', () => {
+  helpTxt.style.display = 'none';
+});
 
 playBtn.addEventListener('click', () => {
   socket.emit('joinQueue');
