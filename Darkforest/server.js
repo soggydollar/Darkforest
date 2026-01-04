@@ -194,8 +194,7 @@ function updateRoom(roomId) {
 
   io.to(roomId).emit("state", {
     players: rooms[roomId].players,
-    bullets: rooms[roomId].bullets,
-    online: onlineCount
+    bullets: rooms[roomId].bullets
   });
 }
 
