@@ -1,12 +1,24 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
 
-app.use(express.static("public"));
+const CLIENT_URL = process.env.NODE_ENV === "production"
+  ? process.env.CLIENT_URL
+  : "http://localhost:3000";
+
+const io = new Server(server, {
+  cors: {
+    origin: CLIENT_URL,
+    methods: ["GET", "POST"]
+  },
+  transports: ["websocket", "polling"]
+});
+
+app.use(express.static(path.join(__dirname, "public")));
 
 const players = {};
 const width = 1280;
@@ -141,8 +153,6 @@ io.on("connection", (socket) => {
   });
 });
 
-
-
 function updateRoom(roomId) {
   const room = rooms[roomId];
   if (!room) return;
@@ -188,7 +198,7 @@ setInterval(() => {
   }
 }, 50);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
