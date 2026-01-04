@@ -36,7 +36,7 @@ let onlineCount = 0;
 io.on("connection", (socket) => {
   onlineCount += 1;
   console.log("a user connected:", socket.id);
-  socket.emit("count", onlineCount);
+  io.emit("count", onlineCount);
 
   socket.on("joinQueue", () => {
     if (!queue.includes(socket.id)) queue.push(socket.id);
