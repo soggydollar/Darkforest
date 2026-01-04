@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webfire</title>
+    <link rel="stylesheet" href="/Webfire.css">
+</head>
+<body>
+  <div id="home">
+      <canvas id="bgCanvas"></canvas>
+    <h1>Darkforest</h1>
+    <button id="playBtn" class="btn">Play</button>
+  </div>
+
+  <div id="gameContainer">
+      <canvas id="canvas" width="1280" height="720"></canvas>
+  </div>
+
+  <div id="result">
+      <h1 id="result-msg">...</h1>
+      <button id="playAgainBtn" class="btn">Play Again</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/bgCanvas.js"></script>
+  <script src="/Webfire.js"></script>
+</body>
+</html>
