@@ -6,6 +6,11 @@ const helpTxt = document.getElementById('helpTxt');
 const closeBtn = document.getElementById('closeBtn');
 const home = document.getElementById('home');
 
+const onlineCount = document.getElementById('onlineCount');
+socket.on("count", (count) => {
+  onlineCount.textContent = "Online count: " + count;
+});
+
 const gameContainer = document.getElementById('gameContainer');
 
 const playAgainBtn = document.getElementById('playAgainBtn');

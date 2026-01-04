@@ -31,8 +31,12 @@ let nextBulletId = 0;
 let queue = [];
 const rooms = {};
 
+let onlineCount = 0;
+
 io.on("connection", (socket) => {
+  onlineCount += 1;
   console.log("a user connected:", socket.id);
+  socket.emit("count", onlineCount);
 
   socket.on("joinQueue", () => {
     if (!queue.includes(socket.id)) queue.push(socket.id);
@@ -135,7 +139,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    onlineCount -= 1;
     console.log("user disconnected:", socket.id);
+    io.emit("count", onlineCount);
     queue = queue.filter(id => id !== socket.id);
     const roomId = socket.data.roomId;
     if (!roomId) return;
@@ -188,7 +194,8 @@ function updateRoom(roomId) {
 
   io.to(roomId).emit("state", {
     players: rooms[roomId].players,
-    bullets: rooms[roomId].bullets
+    bullets: rooms[roomId].bullets,
+    online: onlineCount
   });
 }
 
