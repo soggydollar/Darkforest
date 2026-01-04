@@ -200,15 +200,14 @@ function startGame() {
     }
 
     function animate() {
+      ctx.clearRect(0, 0, width, height);
       if (!gameInProgress) {
         result.style.display = 'flex';
         resultMsg.textContent = players[playerId].alive ? "You win!" : "You lose!";
         socket.emit("gameOver");
         return;
       }
-
       requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, width, height);
 
       ctx.fillStyle = 'grey';
       for (const id in players) {
