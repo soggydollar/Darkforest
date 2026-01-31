@@ -100,17 +100,14 @@ io.on("connection", (socket) => {
     player.mouseY = mouseY;
   });
 
-  socket.on("input", keys => {
+  socket.on("position", (playerX, playerY, flashlight) => {
     const roomId = socket.data.roomId;
     const player = rooms[roomId]?.players[socket.id];
     if (!player) return;
 
-    const speed = player.speed;
-    if (keys["w"]) player.y -= speed;
-    if (keys["s"]) player.y += speed;
-    if (keys["a"]) player.x -= speed;
-    if (keys["d"]) player.x += speed;
-    player.flashlightOn = keys[' '];
+    player.x = playerX;
+    player.y = playerY;
+    player.flashlightOn = flashlight;
 
     const radius = player.radius;
     player.x = Math.max(radius, Math.min(width-radius, player.x));

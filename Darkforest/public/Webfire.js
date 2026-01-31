@@ -268,7 +268,16 @@ function startGame() {
       const elapsed = Date.now() - lastFireTime;
       if (elapsed < fireRate) reloadBar(elapsed/fireRate);
       ctx.globalCompositeOperation = 'source-over';
-      socket.emit("input", keys);
+
+      const speed = players[playerId].speed;
+      const now = performance.now();
+
+      if (keys["w"]) players[playerId].y -= speed;
+      if (keys["s"]) players[playerId].y += speed;
+      if (keys["a"]) players[playerId].x -= speed;
+      if (keys["d"]) players[playerId].x += speed;
+
+      socket.emit("position", players[playerId].x, players[playerId].y, keys[" "]);
     }
 
     animate();
