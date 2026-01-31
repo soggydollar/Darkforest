@@ -122,10 +122,18 @@ function startGame() {
     updateCanvasTransform();
     window.addEventListener("resize", updateCanvasTransform);
 
+    let lastMouseSend = 0;
+    const MOUSE_RATE = 40;
+
     document.addEventListener('mousemove', e => {
+      const now = performance.now();
+      if (now - lastMouseSend < MOUSE_RATE) return;
+      lastMouseSend = now;
+
       mouseX = (e.clientX - offsetX) * scaleX;
       mouseY = (e.clientY - offsetY) * scaleY;
-      socket.emit("mousemove", mouseX, mouseY);
+
+      socket.volatile.emit("mousemove", mouseX, mouseY);
     });
 
     canvas.addEventListener('click', (e) => {
